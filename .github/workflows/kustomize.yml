@@ -1,4 +1,4 @@
-name: Generate KubeCTL completions
+name: Generate Kustomize completions
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -17,7 +17,7 @@ on:
 
 jobs:
   generate:
-    name: Generate KubeCTL completions
+    name: Generate Kustomize completions
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -32,19 +32,17 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Install KubeCTL
+      - name: Install Kustomize
         shell: bash
         run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
         env:
           DEBIAN_FRONTEND: noninteractive
 
       - name: Generate Completions
         shell: bash
         run: |
-          export PATH="/usr/local/bin:${PATH}"
-          kubectl completion fish > ./kubectl.fish
+          kustomize completion fish > ./kustomize.fish
 
       - name: Check for Changes
         id: check_changes
