@@ -1,6 +1,6 @@
 # Print an optspec for argparse to handle cmd's options that are independent of any subcommand.
 function __fish_cog_global_optspecs
-	string join \n v/verbose q/quiet h/help V/version
+	string join \n v/verbose q/quiet config= h/help V/version
 end
 
 function __fish_cog_needs_command
@@ -24,6 +24,7 @@ function __fish_cog_using_subcommand
 	contains -- $cmd[1] $argv
 end
 
+complete -c cog -n "__fish_cog_needs_command" -l config -d 'Path to config file' -r
 complete -c cog -n "__fish_cog_needs_command" -s v -l verbose -d 'The level of verbosity: -v for ERROR, -vv for WARNING, -vvv for INFO'
 complete -c cog -n "__fish_cog_needs_command" -s q -l quiet -d 'Silence all output, no matter the value of verbosity'
 complete -c cog -n "__fish_cog_needs_command" -s h -l help -d 'Print help'
@@ -72,21 +73,13 @@ complete -c cog -n "__fish_cog_using_subcommand changelog" -s o -l owner -d 'Rep
 complete -c cog -n "__fish_cog_using_subcommand changelog" -l repository -d 'Name of the repository used during template generation' -r
 complete -c cog -n "__fish_cog_using_subcommand changelog" -s h -l help -d 'Print help (see more with \'--help\')'
 complete -c cog -n "__fish_cog_using_subcommand get-version" -s f -l fallback -d 'Fallback version. Has to be semver compliant' -r
-complete -c cog -n "__fish_cog_using_subcommand get-version" -l package -d 'Specify which package to get the version for in a monorepo' -r -f -a "entity\t''
-server\t''
-migration\t''
-frontend\t''
-micro-url\t''"
+complete -c cog -n "__fish_cog_using_subcommand get-version" -l package -d 'Specify which package to get the version for in a monorepo' -r -f -a ""
 complete -c cog -n "__fish_cog_using_subcommand get-version" -s h -l help -d 'Print help'
 complete -c cog -n "__fish_cog_using_subcommand bump" -l version -d 'Manually set the target version' -r
 complete -c cog -n "__fish_cog_using_subcommand bump" -l pre -d 'Set the pre-release version' -r
 complete -c cog -n "__fish_cog_using_subcommand bump" -l build -d 'Set the build suffix' -r
 complete -c cog -n "__fish_cog_using_subcommand bump" -s H -l hook-profile -d 'Specify the bump profile hooks to run' -r -f -a ""
-complete -c cog -n "__fish_cog_using_subcommand bump" -l package -d 'Specify which package to bump for monorepo' -r -f -a "entity\t''
-server\t''
-migration\t''
-frontend\t''
-micro-url\t''"
+complete -c cog -n "__fish_cog_using_subcommand bump" -l package -d 'Specify which package to bump for monorepo' -r -f -a ""
 complete -c cog -n "__fish_cog_using_subcommand bump" -s A -l annotated -d 'Annotate tag with given message' -r
 complete -c cog -n "__fish_cog_using_subcommand bump" -l skip-ci-override -d 'Override and add the skip-ci string with the provided value to the bump commit' -r
 complete -c cog -n "__fish_cog_using_subcommand bump" -s a -l auto -d 'Automatically suggest the target version'
