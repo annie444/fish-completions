@@ -73,6 +73,7 @@ jobs:
           git commit -m "[$NOW] ($GITHUB_WORKFLOW) Updating completions" --author="$GITHUB_ACTOR <$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com>"
 
           # Push the changes
+          git pull
           git push
         env:
           GITHUB_ACTOR_ID: "${{ github.actor_id }}"
