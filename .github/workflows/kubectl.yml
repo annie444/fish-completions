@@ -23,6 +23,9 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
+      deployments: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -81,3 +84,19 @@ jobs:
           GITHUB_ACTOR_ID: "${{ github.actor_id }}"
           GITHUB_ACTOR: "${{ github.actor }}"
           GITHUB_WORKFLOW: "${{ github.workflow }}"
+
+      - name: Update fish-dots
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            try {
+              await octokit.rest.actions.createWorkflowDispatch({
+                owner: "annie444",
+                repo: "fish-dots",
+                workflow_id: "sync.yml",
+                ref: "main"
+              });
+            } catch (e) {
+              core.setFailed(`Failed to trigger workflow. Got error: ${e}`);
+            }
