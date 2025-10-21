@@ -56,9 +56,10 @@ jobs:
         if: steps.check_changes.outputs.has_changes == 'true'
         shell: bash
         run: |
-          # Configure user
+          # Configure git
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global pull.rebase true
 
           # Check for changes
           if [[ "$(git status)" == *"nothing to commit, working tree clean"* ]]; then
