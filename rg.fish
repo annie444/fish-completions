@@ -105,7 +105,7 @@ complete -c rg -s h -l help -d 'Show help output.'
 complete -c rg -s . -l hidden -d 'Search hidden files and directories.'
 complete -c rg -l no-hidden -n '__rg_contains_opt hidden .' -d 'Search hidden files and directories.'
 complete -c rg  -l hostname-bin -d 'Run a program to get this system\'s hostname.' -r -f -a '(__fish_complete_command)'
-complete -c rg  -l hyperlink-format -d 'Set the format of hyperlinks.' -r -f -a 'default none file grep+ kitty macvim textmate vscode vscode-insiders vscodium'
+complete -c rg  -l hyperlink-format -d 'Set the format of hyperlinks.' -r -f -a 'default none cursor file grep+ kitty macvim textmate vscode vscode-insiders vscodium'
 complete -c rg  -l iglob -d 'Include/exclude paths case insensitively.' -r -f
 complete -c rg -s i -l ignore-case -d 'Case insensitive search.'
 complete -c rg  -l ignore-file -d 'Specify additional ignore files.' -r -F
